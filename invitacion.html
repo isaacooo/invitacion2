@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Isaac 19: ¡Al Infinito! 🤠</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Lilita+One&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sky-blue: #7ec0ee;
+            --woody-yellow: #fdec02;
+            --toy-red: #e62326;
+            --toy-blue: #3498db;
+            --wood-brown: #795548;
+            --oro-sheriff: #d4a313;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--sky-blue);
+            background-image: url('https://www.transparenttextures.com/patterns/clouds.png'); /* Textura sutil de nubes */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Lilita One', cursive;
+            overflow-x: hidden;
+        }
+
+        /* --- PANTALLA DE INICIO: EL TRAJE DE WOODY --- */
+        #intro-cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 200;
+            background: url('1.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+            border-bottom: 10px solid var(--wood-brown);
+        }
+
+        #start-button {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--toy-red);
+            border: 5px solid var(--woody-yellow);
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            font-family: 'Luckiest Guy', cursive;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            text-transform: uppercase;
+            margin-top: 220px; /* Ajustado para que no tape la estrella ni botones */
+            transition: 0.3s;
+            animation: pulse 1.5s infinite;
+        }
+
+        #start-button:hover { transform: scale(1.1); background: white; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Clase para deslizar hacia arriba */
+        .slide-up { transform: translateY(-110%); }
+
+        /* --- CONTENIDO DE LA INVITACIÓN --- */
+        .container {
+            width: 100%;
+            max-width: 460px;
+            padding: 15px;
+            z-index: 10;
+            display: none; /* Se activa tras el clic */
+        }
+
+        .main-card {
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Imagen Principal de la Invitación (2.jpg) */
+        .poster-img {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* Contenedor del Boleto de Cine (3.jpg) */
+        .ticket-container {
+            background-color: #fffdf0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ticket-img {
+            width: 100%; /* Menor tamaño para que luzca proporcional */
+            max-width: 380px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+        
+        .ticket-img:hover {
+            transform: scale(1.03) rotate(-1deg);
+        }
+
+        /* --- SECCIÓN DE CONFIRMACIÓN (ESTILO CAMISA WOODY) --- */
+        .confirm-area {
+            background-color: var(--woody-yellow);
+            background-image: 
+                linear-gradient(rgba(230, 35, 38, 0.15) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(230, 35, 38, 0.15) 2px, transparent 2px);
+            background-size: 40px 40px;
+            padding: 35px 25px;
+            text-align: center;
+            border-top: 6px solid #b37d14;
+        }
+
+        .confirm-area h2 {
+            font-size: 1.6rem;
+            color: #333;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 0px #fff;
+        }
+
+        .confirm-area p {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: 3px solid #ccc;
+            margin-bottom: 15px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            text-align: center;
+            font-size: 1.1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-confirm {
+            width: 100%;
+            background: linear-gradient(135deg, #f5a623, #d47a00);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-family: 'Lilita One', cursive;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.1s;
+        }
+
+        .btn-confirm:active { transform: scale(0.98); }
+
+        /* Caja de éxito de Firebase */
+        .success-box {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            border: 3px dashed var(--oro-sheriff);
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .success-box h3 {
+            color: #2e7d32;
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .footer-text {
+            padding: 15px 0;
+            background-color: #b37d14;
+            font-size: 0.8rem;
+            color: white;
+            letter-spacing: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="intro-cover">
+        <button id="start-button" onclick="revealInvite()">¡Abrir Invitación! 📦</button>
+    </div>
+
+    <div class="container" id="invite-content">
+        <div class="main-card animate__animated">
+            
+            <img src="2.jpg" alt="Isaac 19" class="poster-img">
+            
+            <div class="ticket-container">
+                <img src="3.jpg" alt="Boleto al Cine" class="ticket-img">
+            </div>
+
+            <div class="confirm-area">
+                <div id="form-container">
+                    <h2>¿Asistirás, vaquero?</h2>
+                    <p>Escribe tu nombre para asegurar tu lugar en la aventura</p>
+                    <input type="text" id="guest-name" placeholder="Tu nombre completo..." required>
+                    <button class="btn-confirm" onclick="confirmAsistencia()">¡Confirmar Asistencia! ✨</button>
+                </div>
+
+                <div id="success-message" class="success-box">
+                    <h3>¡Al infinito y más allá! 🚀</h3>
+                    <p style="font-family: 'Quicksand', sans-serif; color: #444;">Tu asistencia ha sido guardada. ¡Nos vemos el 2 de Julio!</p>
+                </div>
+            </div>
+
+            <div class="footer-text">PROPERTY OF ISAAC</div>
+        </div>
+    </div>
+
+    <script>
+        function revealInvite() {
+            // Desliza el traje hacia arriba
+            document.getElementById('intro-cover').classList.add('slide-up');
+            
+            // Muestra el contenido
+            const content = document.getElementById('invite-content');
+            content.style.display = 'block';
+            
+            // Añade animación de entrada a la tarjeta
+            setTimeout(() => {
+                document.querySelector('.main-card').classList.add('animate__backInUp');
+            }, 100);
+        }
+
+        function confirmAsistencia() {
+            const nameInput = document.getElementById('guest-name');
+            const guestName = nameInput.value.trim();
+
+            if(guestName === "") {
+                alert("¡Escribe tu nombre para saber quién eres, vaquero!");
+                return;
+            }
+
+            const btn = document.querySelector('.btn-confirm');
+            btn.innerText = "Guardando...";
+            btn.disabled = true;
+
+            // URL directa vinculada a tu Realtime Database de Firebase
+            const urlFirebase = 'https://invitacion3-55d66-default-rtdb.firebaseio.com/asistentes.json';
+
+            fetch(urlFirebase, {
+                method: 'POST',
+                body: JSON.stringify({
+                    nombre: guestName,
+                    fechaRegistro: new Date().toISOString()
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if(response.ok) {
+                    // Oculta inputs y despliega el mensaje nativo de éxito
+                    document.getElementById('form-container').style.display = 'none';
+                    document.getElementById('success-message').style.display = 'block';
+                } else {
+                    alert("Hubo un error al guardar tu lugar. Inténtalo de nuevo.");
+                    btn.innerText = "¡Confirmar Asistencia! ✨";
+                    btn.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error de conexión con la base de datos.");
+                btn.innerText = "¡Confirmar Asistencia! ✨";
+                btn.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
